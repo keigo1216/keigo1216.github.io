@@ -1,0 +1,22 @@
+[
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "Suppressing Final Layer Hidden State Jumps in Transformer Pretraining",
+    "authors": "Keigo Shibata, Kazuki Yano, Ryosuke Takahashi, Jaesung Lee, Wataru Ikeda, Jun Suzuki.",
+    "venue": "EACL2026 findings",
+    "links": {
+      "paper": "https://example.com/paper.pdf"
+    }
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "Layerwise Importance Analysis of Feed-Forward Networks in Transformer-based Language Models",
+    "authors": "Wataru Ikeda, Kazuki Yano, Ryosuke Takahashi, Jaesung Lee, Keigo Shibata, Jun Suzuki",
+    "venue": "COLM2025",
+    "links": {
+      "paper": "https://arxiv.org/abs/2508.17734"
+    }
+  }
+]
