@@ -1,5 +1,10 @@
 const $ = (sel) => document.querySelector(sel);
 
+const GITHUB_REPO = "keigo1216/keigo1216.github.io";
+const NEWS_LABEL = "news";
+const PUB_LABEL = "pub";
+const PUB_LINK_KEYS = ["paper", "doi", "arxiv", "code", "project", "slides", "video"];
+
 function escapeHtml(str) {
   return String(str)
     .replaceAll("&", "&amp;")
@@ -66,8 +71,35 @@ function renderPublications(pubs, query = "", type = "all") {
 
   const listEl = $("#pubList");
   if (listEl) {
-    listEl.innerHTML = html || `<p class="note">該当するpublicationがありません。</p>`;
+    listEl.innerHTML = html || `<p class="note">No publications yet.</p>`;
   }
+}
+
+function parseIssueToPub(issue) {
+  const fields = {};
+  const links = {};
+
+  (issue.body ?? "").split("\n").forEach((line) => {
+    const m = line.match(/^\s*([A-Za-z]+)\s*:\s*(.+?)\s*$/);
+    if (!m) return;
+    const key = m[1].toLowerCase();
+    const value = m[2];
+    if (PUB_LINK_KEYS.includes(key)) {
+      links[key] = value;
+    } else {
+      fields[key] = value;
+    }
+  });
+
+  return {
+    year: fields.year ? Number(fields.year) : new Date(issue.created_at).getFullYear(),
+    type: fields.type ?? "",
+    title: issue.title ?? "",
+    authors: fields.authors ?? "",
+    venue: fields.venue ?? "",
+    note: fields.note ?? "",
+    links,
+  };
 }
 
 async function initPubs() {
@@ -75,9 +107,11 @@ async function initPubs() {
   if (!listEl) return;
 
   try {
-    const res = await fetch("assets/data/publications.json", { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to fetch publications.json");
-    const pubs = await res.json();
+    const url = `https://api.github.com/repos/${GITHUB_REPO}/issues?labels=${encodeURIComponent(PUB_LABEL)}&state=all&per_page=50&sort=created&direction=desc`;
+    const res = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
+    if (!res.ok) throw new Error("Failed to fetch publication issues");
+    const issues = await res.json();
+    const pubs = issues.filter((i) => !i.pull_request).map(parseIssueToPub);
 
     const searchEl = $("#pubSearch");
     const filterEl = $("#pubFilter");
@@ -90,8 +124,48 @@ async function initPubs() {
 
     rerender();
   } catch (e) {
-    listEl.innerHTML =
-      `<p class="note">publicationsの読み込みに失敗しました。<code>assets/data/publications.json</code> のJSON形式を確認してください。</p>`;
+    listEl.innerHTML = `<p class="note">Failed to load publications.</p>`;
+  }
+}
+
+function renderNews(items) {
+  const listEl = $("#newsList");
+  if (!listEl) return;
+
+  if (!items.length) {
+    listEl.innerHTML = `<p class="note">No news yet.</p>`;
+    return;
+  }
+
+  listEl.innerHTML = items
+    .map((item) => {
+      const date = (item.created_at ?? "").slice(0, 10);
+      return `
+        <article class="news-item">
+          <div class="news-date">${escapeHtml(date)}</div>
+          <div class="news-body">
+            <a class="news-title" href="${escapeHtml(item.html_url)}" target="_blank" rel="noopener">
+              ${escapeHtml(item.title ?? "")}
+            </a>
+          </div>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+async function initNews() {
+  const listEl = $("#newsList");
+  if (!listEl) return;
+
+  try {
+    const url = `https://api.github.com/repos/${GITHUB_REPO}/issues?labels=${encodeURIComponent(NEWS_LABEL)}&state=all&per_page=20&sort=created&direction=desc`;
+    const res = await fetch(url, { headers: { Accept: "application/vnd.github+json" } });
+    if (!res.ok) throw new Error("Failed to fetch news issues");
+    const issues = await res.json();
+    renderNews(issues.filter((i) => !i.pull_request));
+  } catch (e) {
+    listEl.innerHTML = `<p class="note">Failed to load news.</p>`;
   }
 }
 
@@ -103,3 +177,4 @@ function initYear() {
 
 initYear();
 initPubs();
+initNews();

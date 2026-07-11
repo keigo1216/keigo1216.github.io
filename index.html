@@ -17,9 +17,12 @@
     <div class="container header-inner">
       <nav class="nav" aria-label="site navigation">
         <a href="#about">About</a>
+        <a href="#news">News</a>
+        <a href="#education">Education</a>
         <a href="#research">Research</a>
+        <a href="#experience">Experience</a>
         <a href="#publications">Publications</a>
-        <a href="#about">CV</a>
+        <a href="cv.html">CV</a>
       </nav>
     </div>
   </header>
@@ -29,7 +32,7 @@
       <div class="hero__text">
         <h1 class="hero__title">Keigo Shibata</h1>
         <p class="lead">
-          Master Student @ Tohoku University, Failab
+          Master's Student (M2) @ Tohoku University, Fialab
         </p>
 
         <div class="meta">
@@ -46,7 +49,7 @@
           </span>
 
           <span>
-            <a href="#" rel="noopener" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/keigo-shibata-37098a3ba/" rel="noopener" aria-label="LinkedIn">
                 <i class="fa-brands fa-linkedin"></i>
             </a>
           </span>
@@ -54,32 +57,75 @@
       </div>
 
       <figure class="hero__photo">
-        <img src="assets/img/profile.jpg" alt="プロフィール写真" />
+        <img src="assets/img/profile.jpg" alt="Profile photo" />
       </figure>
     </section>
 
     <section id="about" class="section">
       <h2>About</h2>
       <p>
-        First year Master student at the Graduate School of Information Sciences, Tohoku University, and a member of the Tohoku NLP Group.
+        I'm a second-year master's student at the Graduate School of Information Sciences, Tohoku University,
+        and a member of the Tohoku NLP Group / Fundamental Artificial Intelligence Laboratory (Fialab),
+        advised by Prof. Jun Suzuki.
       </p>
+      <p>
+        Since December 2025, I have also been working as a Research Intern at SB Intuitions.
+      </p>
+    </section>
 
+    <section id="news" class="section">
+      <h2>News</h2>
+      <div id="newsList" class="news-list" aria-live="polite">
+        <!-- Auto-generated from GitHub issues labeled "news" -->
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <h2>Education</h2>
+      <div class="grid">
+        <div class="mini-card">
+          <h3>Tohoku University</h3>
+          <p class="pub-venue">2025 – Present</p>
+          <p>Graduate School of Information Sciences, Master's Program</p>
+        </div>
+        <div class="mini-card">
+          <h3>Tohoku University</h3>
+          <p class="pub-venue">2023 – 2025</p>
+          <p>Faculty of Engineering (transfer admission)</p>
+        </div>
+        <div class="mini-card">
+          <h3>National Institute of Technology, Kurume College</h3>
+          <p class="pub-venue">– 2023</p>
+          <p>Department of Control and Information Engineering</p>
+        </div>
+      </div>
     </section>
 
     <section id="research" class="section">
       <h2>Research</h2>
       <p>
-        Large Language Model Pre-training
+        Improving the pretraining of Transformer-based language models.
       </p>
+    </section>
+
+    <section id="experience" class="section">
+      <h2>Experience</h2>
+      <div class="grid">
+        <div class="mini-card">
+          <h3>SB Intuitions</h3>
+          <p class="pub-venue">Dec. 2025 – Present</p>
+          <p>Research Intern</p>
+        </div>
+      </div>
     </section>
 
     <section id="publications" class="section">
       <div class="pub-header">
         <h2>Publications</h2>
         <!-- <div class="pub-controls">
-          <input id="pubSearch" type="search" placeholder="検索（タイトル/著者/年）" />
+          <input id="pubSearch" type="search" placeholder="Search (title/authors/year)" />
           <select id="pubFilter" aria-label="publication type filter">
-            <option value="all">すべて</option>
+            <option value="all">All</option>
             <option value="journal">Journal</option>
             <option value="conference">Conference</option>
             <option value="workshop">Workshop</option>
@@ -90,7 +136,7 @@
       </div>
 
       <div id="pubList" class="pub-list" aria-live="polite">
-        <!-- JSでpublications.jsonから自動生成 -->
+        <!-- Auto-generated from GitHub issues labeled "pub" -->
       </div>
     </section>
 

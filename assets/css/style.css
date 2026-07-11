@@ -327,6 +327,33 @@ code{
   border-radius: 8px;
 }
 
+.news-list{
+  margin-top: 8px;
+}
+
+.news-item{
+  display:flex;
+  gap: 14px;
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+}
+
+.news-item:first-child{
+  border-top: none;
+}
+
+.news-date{
+  width: 90px;
+  flex: 0 0 90px;
+  color: var(--muted);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+
+.news-title{
+  color: var(--text);
+}
+
 .cv-frame{
   margin-top: 14px;
   border: 1px solid var(--border);
